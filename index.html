@@ -4,10 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>US Cloud PC - 美国云电脑系统</title>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="美国云电脑">
+  <meta name="theme-color" content="#0c1118">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon.svg">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -28,6 +35,7 @@
     <div class="remote-actions">
       <button class="bar-btn" id="btnRestart" title="重启云电脑"><i class="fa-solid fa-rotate-right"></i> 重启</button>
       <button class="bar-btn" id="btnToggleFs" title="全屏显示"><i class="fa-solid fa-expand"></i> 全屏</button>
+      <button class="bar-btn" id="btnMobileHeader" style="background: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.4); color: #6ee7b7;" title="配置到手机"><i class="fa-solid fa-mobile-screen-button"></i> 手机配置</button>
       <button class="bar-btn primary" id="btnGuideHeader" title="搭建指南"><i class="fa-solid fa-book"></i> 开通真机</button>
     </div>
   </header>
@@ -67,6 +75,10 @@
       <div class="desktop-icon" data-app="settings" tabindex="0">
         <div class="icon-img icon-settings"><i class="fa-solid fa-gear"></i></div>
         <span class="icon-label">云电脑设置与节点</span>
+      </div>
+      <div class="desktop-icon" data-app="mobile" tabindex="0">
+        <div class="icon-img icon-mobile" style="background: linear-gradient(135deg, #10b981, #059669); color: #fff;"><i class="fa-solid fa-mobile-screen-button"></i></div>
+        <span class="icon-label">配置到我的手机</span>
       </div>
     </div>
 
