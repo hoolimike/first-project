@@ -1,0 +1,17 @@
+{
+  "name": "US Cloud PC - 美国云电脑",
+  "short_name": "云电脑",
+  "description": "原生美西节点 Windows 11 云工作台与远程桌面管理",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#080d16",
+  "theme_color": "#0c1118",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
