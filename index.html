@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>US Cloud PC - 美国云电脑系统</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Cloud Remote Connection Top Banner -->
+  <header class="remote-bar" id="remoteBar">
+    <div class="remote-left">
+      <span class="pulse-dot"></span>
+      <span class="remote-title"><i class="fa-solid fa-cloud"></i> US Cloud Workspace</span>
+      <span class="badge badge-us"><i class="fa-solid fa-flag-usa"></i> 洛杉矶节点 (US-West)</span>
+      <span class="badge badge-ip" id="displayIp"><i class="fa-solid fa-network-wired"></i> 104.28.19.82</span>
+    </div>
+    <div class="remote-metrics">
+      <span class="metric-item"><i class="fa-solid fa-bolt"></i> 延迟: <strong id="pingVal">138 ms</strong></span>
+      <span class="metric-item"><i class="fa-solid fa-gauge-high"></i> 带宽: <strong>1 Gbps</strong></span>
+      <span class="metric-item"><i class="fa-solid fa-microchip"></i> CPU: <strong id="cpuMetric">14%</strong></span>
+      <span class="metric-item"><i class="fa-solid fa-memory"></i> 内存: <strong id="ramMetric">3.8 / 16 GB</strong></span>
+    </div>
+    <div class="remote-actions">
+      <button class="bar-btn" id="btnRestart" title="重启云电脑"><i class="fa-solid fa-rotate-right"></i> 重启</button>
+      <button class="bar-btn" id="btnToggleFs" title="全屏显示"><i class="fa-solid fa-expand"></i> 全屏</button>
+      <button class="bar-btn primary" id="btnGuideHeader" title="搭建指南"><i class="fa-solid fa-book"></i> 开通真机</button>
+    </div>
+  </header>
+
+  <!-- Desktop Surface -->
+  <main class="desktop" id="desktop">
+    <!-- Desktop Icons Grid -->
+    <div class="desktop-icons" id="desktopIcons">
+      <div class="desktop-icon" data-app="browser" tabindex="0">
+        <div class="icon-img icon-chrome"><i class="fa-brands fa-chrome"></i></div>
+        <span class="icon-label">Chrome 浏览器</span>
+      </div>
+      <div class="desktop-icon" data-app="terminal" tabindex="0">
+        <div class="icon-img icon-terminal"><i class="fa-solid fa-terminal"></i></div>
+        <span class="icon-label">PowerShell 终端</span>
+      </div>
+      <div class="desktop-icon" data-app="connector" tabindex="0">
+        <div class="icon-img icon-rdp"><i class="fa-solid fa-desktop"></i></div>
+        <span class="icon-label">远程桌面 (RDP/SSH)</span>
+      </div>
+      <div class="desktop-icon" data-app="guide" tabindex="0">
+        <div class="icon-img icon-guide"><i class="fa-solid fa-server"></i></div>
+        <span class="icon-label">美国云服务器教程</span>
+      </div>
+      <div class="desktop-icon" data-app="speedtest" tabindex="0">
+        <div class="icon-img icon-speed"><i class="fa-solid fa-gauge-simple-high"></i></div>
+        <span class="icon-label">网络测速 (Speedtest)</span>
+      </div>
+      <div class="desktop-icon" data-app="explorer" tabindex="0">
+        <div class="icon-img icon-explorer"><i class="fa-regular fa-folder-open"></i></div>
+        <span class="icon-label">文件资源管理器</span>
+      </div>
+      <div class="desktop-icon" data-app="notepad" tabindex="0">
+        <div class="icon-img icon-notepad"><i class="fa-regular fa-file-lines"></i></div>
+        <span class="icon-label">记事本</span>
+      </div>
+      <div class="desktop-icon" data-app="settings" tabindex="0">
+        <div class="icon-img icon-settings"><i class="fa-solid fa-gear"></i></div>
+        <span class="icon-label">云电脑设置与节点</span>
+      </div>
+    </div>
+
+    <!-- Windows Container -->
+    <div class="windows-container" id="windowsContainer">
+
+      <!-- APP 1: Browser -->
+      <div class="app-window" id="win-browser" data-appid="browser" style="width: 820px; height: 530px; top: 50px; left: 100px;">
+        <div class="window-titlebar">
+          <div class="window-title"><i class="fa-brands fa-chrome"></i> Google Chrome - 美国住宅/机房网络</div>
+          <div class="window-controls">
+            <button class="win-btn btn-min"><i class="fa-solid fa-minus"></i></button>
+            <button class="win-btn btn-max"><i class="fa-regular fa-square"></i></button>
+            <button class="win-btn btn-close"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+        <div class="browser-navbar">
+          <div class="browser-nav-buttons">
+            <button class="nav-btn" id="bNavBack"><i class="fa-solid fa-arrow-left"></i></button>
+            <button class="nav-btn" id="bNavForward"><i class="fa-solid fa-arrow-right"></i></button>
+            <button class="nav-btn" id="bNavReload"><i class="fa-solid fa-rotate-right"></i></button>
+          </div>
+          <div class="browser-omnibox">
+            <i class="fa-solid fa-lock omni-lock"></i>
+            <input type="text" id="browserUrl" value="https://www.google.com" placeholder="搜索或输入网址...">
+            <button class="nav-go" id="bNavGo"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+        <div class="browser-bookmarks">
+          <span class="bm-item" data-url="https://www.google.com"><i class="fa-brands fa-google"></i> Google</span>
+          <span class="bm-item" data-url="https://chatgpt.com"><i class="fa-solid fa-robot"></i> ChatGPT</span>
+          <span class="bm-item" data-url="https://www.youtube.com"><i class="fa-brands fa-youtube"></i> YouTube</span>
+          <span class="bm-item" data-url="https://github.com"><i class="fa-brands fa-github"></i> GitHub</span>
+          <span class="bm-item" data-url="https://ipinfo.io"><i class="fa-solid fa-location-dot"></i> IP 属地检测</span>
+          <span class="bm-item" data-url="https://twitter.com"><i class="fa-brands fa-x-twitter"></i> X (Twitter)</span>
+        </div>
+        <div class="browser-body" id="browserBody">
+          <!-- Dynamic Web Page Content Rendered Here -->
+        </div>
+      </div>
+
+      <!-- APP 2: Terminal -->
+      <div class="app-window" id="win-terminal" data-appid="terminal" style="width: 760px; height: 460px; top: 90px; left: 160px;">
+        <div class="window-titlebar dark">
+          <div class="window-title"><i class="fa-solid fa-terminal"></i> PowerShell / Bash - Administrator@US-LAX-VM01</div>
+          <div class="window-controls">
+            <button class="win-btn btn-min"><i class="fa-solid fa-minus"></i></button>
+            <button class="win-btn btn-max"><i class="fa-regular fa-square"></i></button>
+            <button class="win-btn btn-close"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+        <div class="terminal-body" id="terminalOutput">
+          <div class="term-line banner">Windows PowerShell [Version 10.0.22631.3296]</div>
+          <div class="term-line banner">(c) Microsoft Corporation. All rights reserved. Cloud Host: US-CA-LOS-ANGELES-01</div>
+          <div class="term-line banner">输入 <span class="term-highlight">help</span> 查看可用命令 (支持: neofetch, curl ip, ping, speedtest, ps, clear 等)</div>
+          <div class="term-line">&nbsp;</div>
+        </div>
+        <div class="terminal-prompt-box">
+          <span class="prompt-text">PS C:\Users\Admin&gt;</span>
+          <input type="text" class="terminal-input" id="terminalInput" autocomplete="off" spellcheck="false" autofocus>
+        </div>
+      </div>
+
+      <!-- APP 3: Connector (Remote RDP / SSH) -->
+      <div class="app-window" id="win-connector" data-appid="connector" style="width: 680px; height: 500px; top: 70px; left: 220px;">
+        <div class="window-titlebar">
+          <div class="window-title"><i class="fa-solid fa-desktop"></i> 云电脑远程桌面客户端 (Web RDP / SSH / VNC)</div>
+          <div class="window-controls">
+            <button class="win-btn btn-min"><i class="fa-solid fa-minus"></i></button>
+            <button class="win-btn btn-max"><i class="fa-regular fa-square"></i></button>
+            <button class="win-btn btn-close"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+        <div class="connector-body">
+          <div class="connector-tabs">
+            <button class="c-tab active" data-proto="rdp"><i class="fa-brands fa-windows"></i> Windows RDP (3389)</button>
+            <button class="c-tab" data-proto="ssh"><i class="fa-solid fa-terminal"></i> Linux SSH (22)</button>
+            <button class="c-tab" data-proto="vnc"><i class="fa-solid fa-display"></i> VNC 桌面 (5900)</button>
+          </div>
+          <div class="connector-form">
+            <div class="form-row">
+              <label>远程主机 IP / 域名:</label>
+              <div class="input-with-icon">
+                <i class="fa-solid fa-server"></i>
+                <input type="text" id="connHost" value="104.28.19.82" placeholder="如 154.21.x.x 或 ec2.us-west-1.compute.amazonaws.com">
+              </div>
+            </div>
+            <div class="form-grid">
+              <div class="form-row">
+                <label>端口 (Port):</label>
+                <input type="number" id="connPort" value="3389">
+              </div>
+              <div class="form-row">
+                <label>用户名 (Username):</label>
+                <input type="text" id="connUser" value="Administrator">
+              </div>
+            </div>
+            <div class="form-row">
+              <label>密码 / 私钥 (Password / Key):</label>
+              <div class="input-with-icon">
+                <i class="fa-solid fa-key"></i>
+                <input type="password" id="connPass" value="••••••••••••" placeholder="输入远程登录凭证">
+              </div>
+            </div>
+            <div class="form-row options-row">
+              <label><input type="checkbox" id="chkAudio" checked> 开启音频重定向</label>
+              <label><input type="checkbox" id="chkClipboard" checked> 共享剪贴板</label>
+              <label><input type="checkbox" id="chkGpu" checked> 硬件加速 (GPU Direct)</label>
+            </div>
+            <div class="connector-actions">
+              <button class="btn-primary" id="btnConnectNow"><i class="fa-solid fa-plug"></i> 立即连接远程桌面</button>
+              <button class="btn-secondary" id="btnQuickDemo"><i class="fa-solid fa-play"></i> 快速演示连接 (US Demo)</button>
+            </div>
+            <div class="conn-status" id="connStatusBox">
+              <i class="fa-solid fa-circle-check text-success"></i> 当前处于就绪状态，已预配置美国加州演示机房环境。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- APP 4: US Cloud PC Guide -->
+      <div class="app-window" id="win-guide" data-appid="guide" style="width: 780px; height: 530px; top: 60px; left: 140px;">
+        <div class="window-titlebar">
+          <div class="window-title"><i class="fa-solid fa-book-open"></i> 真实美国云电脑开通与搭建完全指南</div>
+          <div class="window-controls">
+            <button class="win-btn btn-min"><i class="fa-solid fa-minus"></i></button>
+            <button class="win-btn btn-max"><i class="fa-regular fa-square"></i></button>
+            <button class="win-btn btn-close"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+        <div class="guide-layout">
+          <aside class="guide-sidebar">
+            <button class="g-tab-btn active" data-guide="free"><i class="fa-solid fa-gift"></i> 免费/低成本云电脑方案</button>
+            <button class="g-tab-btn" data-guide="oracle"><i class="fa-solid fa-cloud"></i> 甲骨文 Oracle 永久免费</button>
+            <button class="g-tab-btn" data-guide="aws"><i class="fa-brands fa-aws"></i> AWS Lightsail / EC2 1年</button>
+            <button class="g-tab-btn" data-guide="shadow"><i class="fa-solid fa-gamepad"></i> 商业图形云电脑 (Shadow)</button>
+            <button class="g-tab-btn" data-guide="script"><i class="fa-solid fa-code"></i> 一键安装远程桌面脚本</button>
+          </aside>
+          <div class="guide-content" id="guideContent">
+            <!-- Dynamic Guide Content Loaded Here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- APP 5: Speedtest -->
+      <div class="app-window" id="win-speedtest" data-appid="speedtest" style="width: 660px; height: 480px; top: 110px; left: 240px;">
+        <div class="window-titlebar">
+          <div class="window-title"><i class="fa-solid fa-gauge-simple-high"></i> 美国骨干网络测速工具 (US Speedtest)</div>
+          <div class="window-controls">
+            <button class="win-btn btn-min"><i class="fa-solid fa-minus"></i></button>
+            <button class="win-btn btn-max"><i class="fa-regular fa-square"></i></button>
+            <button class="win-btn btn-close"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+        <div class="speedtest-body">
+          <div class="speed-header">
+            <div>
+              <div class="server-title">节点: Los Angeles, CA - Equinix LA3</div>
+              <div class="server-ip">公网 IP: 104.28.19.82 (Cogent/HE BGP 冗余带宽)</div>
+            </div>
+            <button class="speed-start-btn" id="btnStartSpeedtest">开始测速</button>
+          </div>
+          <div class="speed-dashboard">
+            <div class="speed-gauge-card">
+              <div class="gauge-title">下载速度 (Download)</div>
+              <div class="gauge-value" id="dlSpeed">0.00</div>
+              <div class="gauge-unit">Mbps</div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" id="dlBar" style="width: 0%"></div></div>
+            </div>
+            <div class="speed-gauge-card">
+              <div class="gauge-title">上传速度 (Upload)</div>
+              <div class="gauge-value" id="ulSpeed">0.00</div>
+              <div class="gauge-unit">Mbps</div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" id="ulBar" style="width: 0%"></div></div>
+            </div>
+          </div>
+          <div class="speed-footer-stats">
+            <div class="stat-pill"><i class="fa-solid fa-wave-square"></i> 延迟 Ping: <strong id="speedPing">-- ms</strong></div>
+            <div class="stat-pill"><i class="fa-solid fa-arrows-split-up-and-left"></i> 抖动 Jitter: <strong id="speedJitter">-- ms</strong></div>
+            <div class="stat-pill"><i class="fa-solid fa-shield-halved"></i> 丢包率 Loss: <strong>0.0%</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- APP 6: Explorer -->
+      <div class="app-window" id="win-explorer" data-appid="explorer" style="width: 720px; height: 460px; top: 120px; left: 180px;">
+        <div class="window-titlebar">
+          <div class="window-title"><i class="fa-regular fa-folder-open"></i> 文件资源管理器 - 此电脑 (C: 盘)</div>
+          <div class="window-controls">
+            <button class="win-btn btn-min"><i class="fa-solid fa-minus"></i></button>
+            <button class="win-btn btn-max"><i class="fa-regular fa-square"></i></button>
+            <button class="win-btn btn-close"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+        <div class="explorer-address">
+          <button class="nav-btn"><i class="fa-solid fa-arrow-up"></i></button>
+          <div class="address-box"><i class="fa-solid fa-hard-drive"></i> 本地磁盘 (C:) &gt; Users &gt; Admin &gt; CloudPC</div>
+        </div>
+        <div class="explorer-body">
+          <div class="explorer-sidebar">
+            <div class="tree-item active"><i class="fa-solid fa-laptop"></i> 此电脑</div>
+            <div class="tree-item"><i class="fa-regular fa-folder"></i> 下载 (Downloads)</div>
+            <div class="tree-item"><i class="fa-regular fa-folder"></i> 文档 (Documents)</div>
+            <div class="tree-item"><i class="fa-regular fa-folder"></i> 桌面 (Desktop)</div>
+            <div class="tree-item"><i class="fa-solid fa-hard-drive"></i> 系统盘 (C:) [218G 可用]</div>
+          </div>
+          <div class="explorer-files" id="fileList">
+            <div class="file-item" data-file="guide.txt">
+              <i class="fa-regular fa-file-lines file-icon"></i>
+              <span class="file-name">US_Cloud_Setup.txt</span>
+              <span class="file-size">4.2 KB</span>
+            </div>
+            <div class="file-item" data-file="credentials.txt">
+              <i class="fa-solid fa-key file-icon"></i>
+              <span class="file-name">RDP_Credentials.txt</span>
+              <span class="file-size">1.1 KB</span>
+            </div>
+            <div class="file-item" data-file="script.sh">
+              <i class="fa-solid fa-terminal file-icon"></i>
+              <span class="file-name">install_xrdp.sh</span>
+              <span class="file-size">2.8 KB</span>
+            </div>
+            <div class="file-item">
+              <i class="fa-solid fa-globe file-icon"></i>
+              <span class="file-name">US_Proxy_Config.json</span>
+              <span class="file-size">860 B</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- APP 7: Notepad -->
+      <div class="app-window" id="win-notepad" data-appid="notepad" style="width: 600px; height: 420px; top: 130px; left: 260px;">
+        <div class="window-titlebar">
+          <div class="window-title"><i class="fa-regular fa-file-lines"></i> 记事本 - Untitled.txt</div>
+          <div class="window-controls">
+            <button class="win-btn btn-min"><i class="fa-solid fa-minus"></i></button>
+            <button class="win-btn btn-max"><i class="fa-regular fa-square"></i></button>
+            <button class="win-btn btn-close"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+        <div class="notepad-menu">
+          <span>文件(F)</span>
+          <span>编辑(E)</span>
+          <span>查看(V)</span>
+          <span id="btnSaveNotepad" style="color: #60cdff; cursor: pointer;"><i class="fa-solid fa-floppy-disk"></i> 保存</span>
+        </div>
+        <textarea class="notepad-editor" id="notepadText" spellcheck="false"># 美国云电脑实例快速信息
+
+[实例概况]
+机房位置: 美国加利福尼亚州 洛杉矶 (US-West)
+公网 IP: 104.28.19.82
+计算规格: 8 vCPU @ 3.4GHz, 16GB DDR4 RAM, 256GB NVMe
+操作系统: Windows 11 Enterprise Cloud x64
+网络线路: 美西直连 BGP + Cogent + Cloudflare Anycast
+
+[常见用途]
+1. 访问海外正规学术与跨境服务 (Google, ChatGPT, GitHub, arXiv)
+2. 跨境电商店铺管理 (独立原生美国家庭/机房环境防关联)
+3. 24小时无人值守远程挂机、爬虫采集与自动化脚本执行
+4. 体验原生美国 Windows 11 系统无任何网络限制
+
+[安全须知]
+请妥善保管您的登录密码与私钥，建议定期更换端口与安全组策略。</textarea>
+      </div>
+
+      <!-- APP 8: Settings & Node Switcher -->
+      <div class="app-window" id="win-settings" data-appid="settings" style="width: 680px; height: 490px; top: 80px; left: 200px;">
+        <div class="window-titlebar">
+          <div class="window-title"><i class="fa-solid fa-gear"></i> 云电脑设置与全球节点切换</div>
+          <div class="window-controls">
+            <button class="win-btn btn-min"><i class="fa-solid fa-minus"></i></button>
+            <button class="win-btn btn-max"><i class="fa-regular fa-square"></i></button>
+            <button class="win-btn btn-close"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+        <div class="settings-body">
+          <section class="settings-section">
+            <h3><i class="fa-solid fa-globe"></i> 切换云电脑节点 / 地区</h3>
+            <div class="node-grid">
+              <div class="node-card active" data-region="us-lax" data-ip="104.28.19.82" data-ping="138" data-name="美国·洛杉矶 (US-West)">
+                <div class="node-flag">🇺🇸</div>
+                <div class="node-info">
+                  <strong>美西·洛杉矶 (Los Angeles)</strong>
+                  <span>延迟: ~138ms | 推荐主力节点</span>
+                </div>
+                <i class="fa-solid fa-circle-check check-icon"></i>
+              </div>
+              <div class="node-card" data-region="us-iad" data-ip="142.250.190.46" data-ping="185" data-name="美国·弗吉尼亚 (US-East)">
+                <div class="node-flag">🇺🇸</div>
+                <div class="node-info">
+                  <strong>美东·弗吉尼亚 (Virginia)</strong>
+                  <span>延迟: ~185ms | AWS/Azure 核心区</span>
+                </div>
+                <i class="fa-solid fa-circle-check check-icon"></i>
+              </div>
+              <div class="node-card" data-region="us-sjc" data-ip="198.51.100.99" data-ping="129" data-name="美国·硅谷 (Silicon Valley)">
+                <div class="node-flag">🇺🇸</div>
+                <div class="node-info">
+                  <strong>美西·硅谷 (Silicon Valley)</strong>
+                  <span>延迟: ~129ms | 科技互联网专区</span>
+                </div>
+                <i class="fa-solid fa-circle-check check-icon"></i>
+              </div>
+              <div class="node-card" data-region="jp-tyo" data-ip="133.130.12.5" data-ping="65" data-name="日本·东京 (Tokyo)">
+                <div class="node-flag">🇯🇵</div>
+                <div class="node-info">
+                  <strong>亚太·东京 (Tokyo)</strong>
+                  <span>延迟: ~65ms | 超低延迟极速响应</span>
+                </div>
+                <i class="fa-solid fa-circle-check check-icon"></i>
+              </div>
+            </div>
+          </section>
+
+          <section class="settings-section">
+            <h3><i class="fa-solid fa-sliders"></i> 显示与性能调优</h3>
+            <div class="setting-toggle-row">
+              <div>
+                <strong>流畅模式 (60 FPS 流传输)</strong>
+                <p>自适应码率，在弱网环境下降低丢包顿挫</p>
+              </div>
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="setting-toggle-row">
+              <div>
+                <strong>深色主题 (Dark Mode)</strong>
+                <p>切换 Windows 11 Fluent 玻璃拟态深浅外观</p>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="chkDarkMode" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </section>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Start Menu Popup -->
+  <div class="start-menu" id="startMenu">
+    <div class="start-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="搜索应用、设置和文档...">
+    </div>
+    <div class="start-pinned">
+      <div class="start-section-title">已固定应用</div>
+      <div class="start-grid">
+        <div class="start-item" data-app="browser">
+          <div class="s-icon icon-chrome"><i class="fa-brands fa-chrome"></i></div>
+          <span>Chrome</span>
+        </div>
+        <div class="start-item" data-app="terminal">
+          <div class="s-icon icon-terminal"><i class="fa-solid fa-terminal"></i></div>
+          <span>PowerShell</span>
+        </div>
+        <div class="start-item" data-app="connector">
+          <div class="s-icon icon-rdp"><i class="fa-solid fa-desktop"></i></div>
+          <span>远程桌面</span>
+        </div>
+        <div class="start-item" data-app="guide">
+          <div class="s-icon icon-guide"><i class="fa-solid fa-server"></i></div>
+          <span>开机指南</span>
+        </div>
+        <div class="start-item" data-app="speedtest">
+          <div class="s-icon icon-speed"><i class="fa-solid fa-gauge-simple-high"></i></div>
+          <span>网络测速</span>
+        </div>
+        <div class="start-item" data-app="explorer">
+          <div class="s-icon icon-explorer"><i class="fa-regular fa-folder-open"></i></div>
+          <span>资源管理器</span>
+        </div>
+        <div class="start-item" data-app="notepad">
+          <div class="s-icon icon-notepad"><i class="fa-regular fa-file-lines"></i></div>
+          <span>记事本</span>
+        </div>
+        <div class="start-item" data-app="settings">
+          <div class="s-icon icon-settings"><i class="fa-solid fa-gear"></i></div>
+          <span>设置</span>
+        </div>
+      </div>
+    </div>
+    <div class="start-footer">
+      <div class="user-profile">
+        <div class="avatar"><i class="fa-solid fa-user-shield"></i></div>
+        <div>
+          <div class="user-name">CloudAdmin (US-Host)</div>
+          <div class="user-sub">在线 (Connected)</div>
+        </div>
+      </div>
+      <div class="power-btn" id="btnPower" title="电源选项">
+        <i class="fa-solid fa-power-off"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Windows Taskbar -->
+  <footer class="taskbar" id="taskbar">
+    <div class="taskbar-center">
+      <button class="tb-btn" id="btnStart" title="开始菜单">
+        <svg class="win-logo-svg" viewBox="0 0 88 88" width="20" height="20">
+          <path fill="#00adef" d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.016 45.728zm4.326-39.025L87.314 0v41.527l-47.318.376zm47.329 39.349v41.54l-47.329-6.674V45.864z"/>
+        </svg>
+      </button>
+      <div class="taskbar-apps" id="taskbarApps">
+        <!-- Running / pinned app icons in taskbar -->
+        <button class="tb-app-btn" data-app="browser" title="Chrome 浏览器"><i class="fa-brands fa-chrome"></i></button>
+        <button class="tb-app-btn" data-app="terminal" title="PowerShell 终端"><i class="fa-solid fa-terminal"></i></button>
+        <button class="tb-app-btn" data-app="connector" title="远程桌面连接"><i class="fa-solid fa-desktop"></i></button>
+        <button class="tb-app-btn" data-app="guide" title="美国云服务器搭建指南"><i class="fa-solid fa-server"></i></button>
+        <button class="tb-app-btn" data-app="speedtest" title="网络测速"><i class="fa-solid fa-gauge-simple-high"></i></button>
+      </div>
+    </div>
+    <div class="taskbar-tray">
+      <div class="tray-icon" title="网络连接正常"><i class="fa-solid fa-wifi"></i></div>
+      <div class="tray-icon" title="系统音频"><i class="fa-solid fa-volume-high"></i></div>
+      <div class="tray-time" id="trayTime">
+        <div class="time-clock" id="clockTime">00:00:00</div>
+        <div class="time-date" id="clockDate">2026/10/11</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Notification Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
